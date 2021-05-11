@@ -4,7 +4,8 @@ import javax.swing.JFrame;
 
 public class Window extends JFrame {
 
-    public window(String s){
-
+    public Window(String s){
+        super(s);
+        setVisible(true);
     }
 }
