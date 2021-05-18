@@ -18,6 +18,8 @@ public class Window extends JFrame {
     private int width = 600;
     private int height = 800;
 
+
+
     public Window(String s){
         super(s);
         this.setSize(width,height);
