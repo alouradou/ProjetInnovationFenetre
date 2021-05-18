@@ -150,8 +150,8 @@ public class Window extends JFrame {
         header_box.add(title);
 
         Box content_box = Box.createHorizontalBox();
-        JScrollPane side_pannel_scrollable_container = new JScrollPane(side_panel);
-        content_box.add(side_pannel_scrollable_container);
+        JScrollPane side_panel_scrollable_container = new JScrollPane(side_panel);
+        content_box.add(side_panel_scrollable_container);
         content_box.add(new JTable(10,5));
 
         Box full_box = Box.createVerticalBox();
