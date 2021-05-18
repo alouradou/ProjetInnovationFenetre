@@ -13,12 +13,10 @@ public class Window extends JFrame {
     private String imgUrl="sncf.png";
     private ImageIcon icone = new ImageIcon(imgUrl);
     private JLabel image;
-    private Box side_pannel = Box.createVerticalBox();
+    private Box side_panel = Box.createVerticalBox();
 
     private int width = 600;
     private int height = 800;
-
-
 
     public Window(String s){
         super(s);
@@ -32,6 +30,8 @@ public class Window extends JFrame {
         Init_Image();
 
         Init_Box();
+
+        Init_SidePanel();
 
         setVisible(true);
     }
@@ -62,6 +62,7 @@ public class Window extends JFrame {
                     "<span style='text-align: center;color: purple; margin: 30px;font-size: 2em;vertical-align: middle;'>Tri des données</span>" +
                 "</html>");
         title.setFocusable(false);
+        title.setHorizontalAlignment(JLabel.CENTER);
         this.getContentPane().add(title, BorderLayout.NORTH);
 
 
@@ -77,6 +78,9 @@ public class Window extends JFrame {
         getContentPane().add(image);
     }
 
+    public void Init_SidePanel(){
+
+    }
 
     public void Init_Box(){
         Box header_box =  Box.createHorizontalBox();
@@ -84,7 +88,7 @@ public class Window extends JFrame {
         header_box.add(title);
 
         Box content_box = Box.createHorizontalBox();
-        content_box.add(side_pannel);
+        content_box.add(side_panel);
         content_box.add(new JTable(10,5));
 
         Box full_box = Box.createVerticalBox();
