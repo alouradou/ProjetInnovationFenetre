@@ -4,11 +4,28 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Arrays;
 
 public class Window extends JFrame {
 
     private JButton quit = new JButton();
     private JLabel title = new JLabel();
+    private JLabel fileChoiceLabel = new JLabel();
+
+    private JPanel checkBoxPanel1 = new JPanel();
+    private JPanel checkBoxPanel2 = new JPanel();
+    private JPanel checkBoxPanel3 = new JPanel();
+    private JPanel checkBoxPanel4 = new JPanel();
+
+    private JLabel checkLabel1 = new JLabel();
+    private JLabel checkLabel2 = new JLabel();
+    private JLabel checkLabel3 = new JLabel();
+    private JLabel checkLabel4 = new JLabel();
+
+    private JCheckBox checkBox1 = new JCheckBox();
+    private JCheckBox checkBox2 = new JCheckBox();
+    private JCheckBox checkBox3 = new JCheckBox();
+    private JCheckBox checkBox4 = new JCheckBox();
 
     private String imgUrl="sncf.png";
     private ImageIcon icone = new ImageIcon(imgUrl);
@@ -59,7 +76,7 @@ public class Window extends JFrame {
 
     public void Init_Labels(){
         title = new JLabel("<html>" +
-                    "<span style='text-align: center;color: purple; margin: 30px;font-size: 2em;vertical-align: middle;'>Tri des données</span>" +
+                    "<span style='color: purple; margin: 30px;font-size: 2em;'>Tri des données</span>" +
                 "</html>");
         title.setFocusable(false);
         title.setHorizontalAlignment(JLabel.CENTER);
@@ -79,7 +96,53 @@ public class Window extends JFrame {
     }
 
     public void Init_SidePanel(){
+        fileChoiceLabel = new JLabel();
+        fileChoiceLabel.setText("<html><span style='color: purple; margin: 30px;'>Choix des fichiers :</span></html>");
 
+        side_panel.setSize(200,300);
+
+        Box checkBoxes = Box.createVerticalBox();
+        for (String texts : Arrays.asList("État Objets","État Organes","Alarmes","Dialogues")) {
+            JCheckBox cb = new JCheckBox(texts);
+            checkBoxes.add(cb, "wrap");
+
+        }
+
+        //Trier par (priorité)
+        JComboBox priority_cb = new JComboBox(new String[] {"Hello, StackOverflow","Hello, Github"});
+        priority_cb.setSize(new Dimension(20,12));
+        checkBoxes.add(priority_cb,"wrap");
+
+        //Temps avant incident
+        Box timeBeforeBox = Box.createVerticalBox();
+        JLabel timeLabel = new JLabel("<html><span style='color: purple; margin: 30px;'>Temps avant l'incident :</span></html>");
+        JTextField timeBefore = new JTextField();
+        timeBeforeBox.add(timeLabel,"wrap");
+        timeBeforeBox.add(timeBefore,"wrap");
+        timeBeforeBox.setSize(new Dimension(20,12));
+
+        Box trainNumberBox = Box.createVerticalBox();
+        JLabel trainNumberLabel = new JLabel("<html><span style='color: purple; margin: 30px;'>Numéro de train :</span></html>");
+        trainNumberBox.add(trainNumberLabel,"wrap");
+        JTextField trainNumber = new JTextField();
+        trainNumberBox.add(trainNumber,"wrap");
+
+        Box nbZoneBox = Box.createVerticalBox();
+        JLabel nbZoneLabel = new JLabel("<html><span style='color: purple; margin: 30px;'>Nombre de zones adjacentes :</span></html>");
+        nbZoneBox.add(nbZoneLabel,"wrap");
+        JTextField nbZone = new JTextField();
+        nbZoneBox.add(nbZone,"wrap");
+
+
+        checkBoxes.setAutoscrolls(true);
+
+        side_panel.add(fileChoiceLabel);
+
+        side_panel.add(checkBoxes,"wrap");
+        side_panel.add(priority_cb,"wrap");
+        side_panel.add(timeBeforeBox,"wrap");
+        side_panel.add(trainNumberBox,"wrap");
+        side_panel.add(nbZoneBox,"wrap");
     }
 
     public void Init_Box(){
