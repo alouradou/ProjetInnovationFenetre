@@ -32,8 +32,8 @@ public class Window extends JFrame {
     private JLabel image;
     private Box side_panel = Box.createVerticalBox();
 
-    private int width = 600;
-    private int height = 800;
+    private int width = 1000;
+    private int height = 700;
 
     public Window(String s){
         super(s);
@@ -97,49 +97,48 @@ public class Window extends JFrame {
 
     public void Init_SidePanel(){
         fileChoiceLabel = new JLabel();
-        fileChoiceLabel.setText("<html><span style='color: purple; margin: 30px;'>Choix des fichiers :</span></html>");
+        fileChoiceLabel.setText("<html><span style='color: purple;'>Choix des fichiers :</span></html>");
 
-        side_panel.setSize(200,300);
+
 
         Box checkBoxes = Box.createVerticalBox();
         for (String texts : Arrays.asList("État Objets","État Organes","Alarmes","Dialogues")) {
             JCheckBox cb = new JCheckBox(texts);
+            cb.setFocusable(false);
             checkBoxes.add(cb, "wrap");
-
         }
 
         //Trier par (priorité)
-        JComboBox priority_cb = new JComboBox(new String[] {"Hello, StackOverflow","Hello, Github"});
+       /* JComboBox priority_cb = new JComboBox(new String[] {"Hello, StackOverflow","Hello, Github"});
         priority_cb.setSize(new Dimension(20,12));
-        checkBoxes.add(priority_cb,"wrap");
+        checkBoxes.add(priority_cb,"wrap");*/
 
         //Temps avant incident
         Box timeBeforeBox = Box.createVerticalBox();
-        JLabel timeLabel = new JLabel("<html><span style='color: purple; margin: 30px;'>Temps avant l'incident :</span></html>");
+        JLabel timeLabel = new JLabel("<html><span style='color: purple;'>Temps avant l'incident :</span></html>");
         JTextField timeBefore = new JTextField();
         timeBeforeBox.add(timeLabel,"wrap");
         timeBeforeBox.add(timeBefore,"wrap");
-        timeBeforeBox.setSize(new Dimension(20,12));
 
         Box trainNumberBox = Box.createVerticalBox();
-        JLabel trainNumberLabel = new JLabel("<html><span style='color: purple; margin: 30px;'>Numéro de train :</span></html>");
+        JLabel trainNumberLabel = new JLabel("<html><span style='color: purple;'>Numéro de train :</span></html>");
         trainNumberBox.add(trainNumberLabel,"wrap");
         JTextField trainNumber = new JTextField();
         trainNumberBox.add(trainNumber,"wrap");
 
         Box nbZoneBox = Box.createVerticalBox();
-        JLabel nbZoneLabel = new JLabel("<html><span style='color: purple; margin: 30px;'>Nombre de zones adjacentes :</span></html>");
+        JLabel nbZoneLabel = new JLabel("<html><span style='color: purple;'>Nombre de zones adjacentes :</span></html>");
         nbZoneBox.add(nbZoneLabel,"wrap");
         JTextField nbZone = new JTextField();
+        nbZoneBox.setPreferredSize(new Dimension(100,50));
         nbZoneBox.add(nbZone,"wrap");
 
 
         checkBoxes.setAutoscrolls(true);
 
-        side_panel.add(fileChoiceLabel);
-
+        side_panel.add(fileChoiceLabel,"wrap");
         side_panel.add(checkBoxes,"wrap");
-        side_panel.add(priority_cb,"wrap");
+      /*  side_panel.add(priority_cb,"wrap");*/
         side_panel.add(timeBeforeBox,"wrap");
         side_panel.add(trainNumberBox,"wrap");
         side_panel.add(nbZoneBox,"wrap");
@@ -151,7 +150,8 @@ public class Window extends JFrame {
         header_box.add(title);
 
         Box content_box = Box.createHorizontalBox();
-        content_box.add(side_panel);
+        JScrollPane side_pannel_scrollable_container = new JScrollPane(side_panel);
+        content_box.add(side_pannel_scrollable_container);
         content_box.add(new JTable(10,5));
 
         Box full_box = Box.createVerticalBox();
