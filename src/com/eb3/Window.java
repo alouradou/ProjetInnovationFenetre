@@ -1,6 +1,8 @@
 package com.eb3;
 
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -32,8 +34,8 @@ public class Window extends JFrame {
     private JLabel image;
     private Box side_panel = Box.createVerticalBox();
 
-    private int width = 1000;
-    private int height = 700;
+    private int width = 600;
+    private int height = 800;
 
     public Window(String s){
         super(s);
@@ -76,7 +78,7 @@ public class Window extends JFrame {
 
     public void Init_Labels(){
         title = new JLabel("<html>" +
-                    "<span style='color: purple; margin: 30px;font-size: 2em;'>Tri des données</span>" +
+                "<span style='color: purple; margin: 30px;font-size: 2em;'>Tri des données</span>" +
                 "</html>");
         title.setFocusable(false);
         title.setHorizontalAlignment(JLabel.CENTER);
@@ -97,51 +99,78 @@ public class Window extends JFrame {
 
     public void Init_SidePanel(){
         fileChoiceLabel = new JLabel();
-        fileChoiceLabel.setText("<html><span style='color: purple;'>Choix des fichiers :</span></html>");
+        fileChoiceLabel.setText("<html><span style='color: purple; margin: 30px;'>Choix des fichiers :</span></html>");
 
-
+        side_panel.setSize(200,300);
 
         Box checkBoxes = Box.createVerticalBox();
         for (String texts : Arrays.asList("État Objets","État Organes","Alarmes","Dialogues")) {
             JCheckBox cb = new JCheckBox(texts);
-            cb.setFocusable(false);
             checkBoxes.add(cb, "wrap");
+
         }
 
         //Trier par (priorité)
-       /* JComboBox priority_cb = new JComboBox(new String[] {"Hello, StackOverflow","Hello, Github"});
+        /*JComboBox priority_cb = new JComboBox(new String[] {"Hello, StackOverflow","Hello, Github"});
         priority_cb.setSize(new Dimension(20,12));
         checkBoxes.add(priority_cb,"wrap");*/
 
         //Temps avant incident
         Box timeBeforeBox = Box.createVerticalBox();
+        timeBeforeBox.setSize(new Dimension(0,20));
         JLabel timeLabel = new JLabel("<html><span style='color: purple;'>Temps avant l'incident :</span></html>");
         JTextField timeBefore = new JTextField();
+        JPanel firstTextFieldPanel = new JPanel(); // cf https://stackoverflow.com/questions/5518713/jtextfield-fixed-height
+        firstTextFieldPanel.setLayout(new FlowLayout());
+        timeBefore.setPreferredSize(new Dimension(50,20));
+        firstTextFieldPanel.add(timeBefore);
         timeBeforeBox.add(timeLabel,"wrap");
-        timeBeforeBox.add(timeBefore,"wrap");
+        timeBeforeBox.add(firstTextFieldPanel,"wrap");
 
         Box trainNumberBox = Box.createVerticalBox();
         JLabel trainNumberLabel = new JLabel("<html><span style='color: purple;'>Numéro de train :</span></html>");
         trainNumberBox.add(trainNumberLabel,"wrap");
+        JPanel secondTextFieldPanel = new JPanel();
+        secondTextFieldPanel.setLayout(new FlowLayout());
         JTextField trainNumber = new JTextField();
-        trainNumberBox.add(trainNumber,"wrap");
+        trainNumber.setPreferredSize(new Dimension(50,20));
+        secondTextFieldPanel.add(trainNumber);
+        trainNumberBox.add(secondTextFieldPanel,"wrap");
 
         Box nbZoneBox = Box.createVerticalBox();
         JLabel nbZoneLabel = new JLabel("<html><span style='color: purple;'>Nombre de zones adjacentes :</span></html>");
         nbZoneBox.add(nbZoneLabel,"wrap");
-        JTextField nbZone = new JTextField();
-        nbZoneBox.setPreferredSize(new Dimension(100,50));
+        JSlider nbZone = new JSlider();
+        nbZone.setMinimum(0);
+        nbZone.setMaximum(10);//cf p479 livre java
+        nbZone.setValue(10);
+        nbZone.setPaintLabels(true);
+        nbZone.setPaintTicks(true);
+        nbZone.setMinorTickSpacing(1);
+        nbZone.setMajorTickSpacing(5);
+        JLabel nbZonesValue = new JLabel();
+        nbZonesValue.setText("Valeur : "+ nbZone.getValue());
+        nbZone.addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                nbZonesValue.setText("Valeur : "+ ((JSlider)e.getSource()).getValue());
+            }
+        });
         nbZoneBox.add(nbZone,"wrap");
+        nbZoneBox.add(nbZonesValue);
+
+        JButton button_default = new JButton("Choix des options par défaut");
 
 
         checkBoxes.setAutoscrolls(true);
 
-        side_panel.add(fileChoiceLabel,"wrap");
+        side_panel.add(fileChoiceLabel);
+
         side_panel.add(checkBoxes,"wrap");
-      /*  side_panel.add(priority_cb,"wrap");*/
         side_panel.add(timeBeforeBox,"wrap");
         side_panel.add(trainNumberBox,"wrap");
         side_panel.add(nbZoneBox,"wrap");
+        side_panel.add(button_default);
     }
 
     public void Init_Box(){
@@ -150,8 +179,8 @@ public class Window extends JFrame {
         header_box.add(title);
 
         Box content_box = Box.createHorizontalBox();
-        JScrollPane side_panel_scrollable_container = new JScrollPane(side_panel);
-        content_box.add(side_panel_scrollable_container);
+        JScrollPane scroll_side = new JScrollPane(side_panel);
+        content_box.add(scroll_side);
         content_box.add(new JTable(10,5));
 
         Box full_box = Box.createVerticalBox();
