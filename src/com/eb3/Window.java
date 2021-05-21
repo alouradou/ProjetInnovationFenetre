@@ -121,6 +121,7 @@ public class Window extends JFrame {
         JLabel timeLabel = new JLabel("<html><span style='color: purple;'>Temps avant l'incident :</span></html>");
         JTextField timeBefore = new JTextField();
         JPanel firstTextFieldPanel = new JPanel(); // cf https://stackoverflow.com/questions/5518713/jtextfield-fixed-height
+        firstTextFieldPanel.setBackground(new Color(255,255,255));
         firstTextFieldPanel.setLayout(new FlowLayout());
         timeBefore.setPreferredSize(new Dimension(50,20));
         firstTextFieldPanel.add(timeBefore);
@@ -131,6 +132,7 @@ public class Window extends JFrame {
         JLabel trainNumberLabel = new JLabel("<html><span style='color: purple;'>Numéro de train :</span></html>");
         trainNumberBox.add(trainNumberLabel,"wrap");
         JPanel secondTextFieldPanel = new JPanel();
+        secondTextFieldPanel.setBackground(new Color(255,255,255));
         secondTextFieldPanel.setLayout(new FlowLayout());
         JTextField trainNumber = new JTextField();
         trainNumber.setPreferredSize(new Dimension(50,20));
