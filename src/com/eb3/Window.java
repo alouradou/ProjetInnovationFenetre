@@ -34,8 +34,8 @@ public class Window extends JFrame {
     private JLabel image;
     private Box side_panel = Box.createVerticalBox();
 
-    private int width = 600;
-    private int height = 800;
+    private int width = 900;
+    private int height = 500;
 
     public Window(String s){
         super(s);
@@ -111,9 +111,9 @@ public class Window extends JFrame {
         }
 
         //Trier par (priorité)
-        /*JComboBox priority_cb = new JComboBox(new String[] {"Hello, StackOverflow","Hello, Github"});
+        JComboBox priority_cb = new JComboBox(new String[] {"Hello, StackOverflow","Hello, Github"});
         priority_cb.setSize(new Dimension(20,12));
-        checkBoxes.add(priority_cb,"wrap");*/
+        /*checkBoxes.add(priority_cb,"wrap");*/
 
         //Temps avant incident
         Box timeBeforeBox = Box.createVerticalBox();
@@ -182,8 +182,9 @@ public class Window extends JFrame {
 
         Box content_box = Box.createHorizontalBox();
         JScrollPane scroll_side = new JScrollPane(side_panel);
+        scroll_side.setMaximumSize(new Dimension(210,1000));
         content_box.add(scroll_side);
-        content_box.add(new JTable(10,5));
+        content_box.add(new JScrollPane(new JTable(40,5)));
 
         Box full_box = Box.createVerticalBox();
         full_box.add(header_box);
