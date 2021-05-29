@@ -37,6 +37,8 @@ public class Window extends JFrame {
     private int width = 900;
     private int height = 500;
 
+    private Table tableau = new Table("");
+
     public Window(String s){
         super(s);
         this.setSize(width,height);
@@ -182,10 +184,11 @@ public class Window extends JFrame {
 
         Box content_box = Box.createHorizontalBox();
         JScrollPane scroll_side = new JScrollPane(side_panel);
-        scroll_side.setMaximumSize(new Dimension(210,1000));
+        scroll_side.setMaximumSize(new Dimension(220,1000));
+        scroll_side.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         content_box.add(scroll_side);
         content_box.add(new JScrollPane(new JTable(40,5)));
-
+        //new JTable(table,table_header)
         Box full_box = Box.createVerticalBox();
         full_box.add(header_box);
         full_box.add(content_box);
